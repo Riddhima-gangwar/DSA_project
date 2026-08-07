@@ -10,7 +10,9 @@
 <br />
 
 ## 🚀 Live Deployment
-> **[Click here to view the Live Project!](#)** *(Update this link once deployed to Vercel)*
+> **[Click here to view the Live Project!](https://reliefops-kappa.vercel.app)**
+
+Deployment details: [Vercel Inspect](https://vercel.com/riddhimagangwar9-5744s-projects/reliefops/3Rhu2P3o1AiCamCFXDELHDPB35x7)
 
 ## 📝 Overview
 ReliefOps is a high-performance command platform for managing relief resources during natural disasters. The application serves as a **Mission Control Center** that utilizes efficient Data Structures and Algorithms to drastically improve response times during critical emergencies.
