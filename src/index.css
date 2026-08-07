@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: 'Outfit', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-[#050505] text-slate-200 font-sans antialiased min-h-[100dvh] selection:bg-emerald-500/30 selection:text-emerald-200;
+    background-image: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+  }
+
+  /* Fixed noise overlay as mandated by high-end-visual-design */
+  body::before {
+    content: "";
+    @apply fixed inset-0 z-50 pointer-events-none opacity-[0.03];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/[0.02] backdrop-blur-3xl border border-white/10 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] rounded-[2rem];
+  }
+  
+  .glass-inner {
+    @apply bg-black/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] rounded-[calc(2rem-0.5rem)];
+  }
+
+  .glow-blue {
+    @apply shadow-[0_0_15px_rgba(59,130,246,0.5)];
+  }
+
+  .glow-red {
+    @apply shadow-[0_0_15px_rgba(239,68,68,0.5)];
+  }
+
+  .glow-orange {
+    @apply shadow-[0_0_15px_rgba(249,115,22,0.5)];
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
