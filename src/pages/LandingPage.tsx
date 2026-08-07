@@ -5,7 +5,7 @@ import { OrbitControls } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { useNavigate } from 'react-router-dom';
 import Hero3DScene from '../components/landing/Hero3DScene';
-import { ArrowRight, BookOpen } from '@phosphor-icons/react';
+import { ArrowRight, BookOpen, GithubLogo } from '@phosphor-icons/react';
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -75,6 +75,18 @@ export default function LandingPage() {
                 <BookOpen size={16} weight="light" />
               </div>
             </button>
+            
+            <a 
+              href="https://github.com/Riddhima-gangwar/DSA_project" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group flex items-center justify-between px-6 sm:px-8 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-full font-bold text-sm transition-all active:scale-[0.98]"
+            >
+              GitHub Source
+              <div className="ml-4 sm:ml-6 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
+                <GithubLogo size={16} weight="fill" />
+              </div>
+            </a>
           </div>
         </motion.div>
 

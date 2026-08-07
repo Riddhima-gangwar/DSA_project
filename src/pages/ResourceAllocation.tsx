@@ -17,13 +17,13 @@ const steps = [
 ];
 
 export default function ResourceAllocation() {
-  const { requests, setRequests } = useAppContext();
+  const { missions, setMissions } = useAppContext();
   
   const [activeStep, setActiveStep] = useState(-1);
   const [isProcessing, setIsProcessing] = useState(false);
   const [currentRequestIndex, setCurrentRequestIndex] = useState(0);
 
-  const pendingRequests = requests.filter(r => r.status === 'Pending');
+  const pendingRequests = missions.filter(r => r.status === 'Pending');
   const currentReq = pendingRequests[currentRequestIndex];
 
   const handleProcess = () => {
@@ -39,7 +39,7 @@ export default function ResourceAllocation() {
       setTimeout(() => {
         setActiveStep(5); // Complete
         setIsProcessing(false);
-        setRequests(prev => prev.map(r => r.id === currentReq.id ? { ...r, status: 'Fulfilled' } : r));
+        setMissions(prev => prev.map(r => r.missionId === currentReq.missionId ? { ...r, status: 'Completed' } : r));
       }, 8500),
     ];
 
@@ -168,7 +168,7 @@ export default function ResourceAllocation() {
                               className="mt-4 overflow-hidden"
                             >
                               <p className="text-gray-400 text-sm md:text-base leading-relaxed">
-                                {step.id === 'request' && currentReq && `Received request ${currentReq.id} for ${currentReq.requestedResource}.`}
+                                {step.id === 'request' && currentReq && `Received request ${currentReq.missionId} for ${currentReq.requestedResource}.`}
                                 {step.id === 'search' && "Scanning global inventory for available items..."}
                                 {step.id === 'sort' && "Prioritizing resources based on urgency and distance..."}
                                 {step.id === 'center' && "Identifying nearest capable relief center..."}
@@ -244,7 +244,7 @@ export default function ResourceAllocation() {
                   <div className="space-y-4">
                     {pendingRequests.map((req, i) => (
                       <motion.div 
-                        key={req.id} 
+                        key={req.missionId} 
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.1, duration: 0.5 }}
@@ -256,14 +256,14 @@ export default function ResourceAllocation() {
                         )}
                       >
                         <div className="flex justify-between items-start mb-4">
-                          <span className="text-base font-bold text-gray-200 font-mono tracking-tight">{req.id}</span>
+                          <span className="text-base font-bold text-gray-200 font-mono tracking-tight">{req.missionId}</span>
                           <span className={clsx(
                             "text-[9px] uppercase font-bold px-3 py-1 rounded-full tracking-widest border",
-                            req.urgency === 'Critical' ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-orange-500/10 text-orange-400 border-orange-500/20'
-                          )}>{req.urgency}</span>
+                            req.priority === 'Critical' ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-orange-500/10 text-orange-400 border-orange-500/20'
+                          )}>{req.priority}</span>
                         </div>
                         <p className="text-xs text-gray-400 mb-3 font-mono">{req.region} • {req.disasterType}</p>
-                        <p className="text-sm font-medium text-blue-300">Requires: {req.quantity}x <span className="font-bold text-white">{req.requestedResource}</span></p>
+                        <p className="text-sm font-medium text-blue-300">Requires: {req.requiredQuantity}x <span className="font-bold text-white">{req.requestedResource}</span></p>
                       </motion.div>
                     ))}
                   </div>

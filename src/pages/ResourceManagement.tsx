@@ -14,7 +14,7 @@ import clsx from 'clsx';
 
 export default function ResourceManagement() {
   const navigate = useNavigate();
-  const { resources, setResources, isEmergencyMode, setEmergencyMode, centers, requests } = useAppContext();
+  const { resources, setResources, isEmergencyMode, setEmergencyMode, centers, missions } = useAppContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [sortKey, setSortKey] = useState<keyof Resource>('name');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
@@ -141,8 +141,8 @@ export default function ResourceManagement() {
 
   const totalQuantity = resources.reduce((acc, curr) => acc + curr.quantity, 0);
   const activeCentersCount = centers.filter(c => c.status === 'Active').length;
-  const criticalRequestsCount = requests.filter(r => r.urgency === 'Critical' && r.status !== 'Fulfilled').length;
-  const resourcesDelivered = requests.filter(r => r.status === 'Fulfilled').length; 
+  const criticalMissionsCount = missions.filter(m => m.priority === 'Critical' && m.status !== 'Completed').length;
+  const resourcesDelivered = missions.filter(m => m.status === 'Completed').length; 
   const lowStockCount = resources.filter(r => r.quantity < 100).length;
 
   const getCategoryIcon = (category: string) => {
@@ -205,8 +205,8 @@ export default function ResourceManagement() {
         {[
           { label: 'Total Resources', value: totalQuantity.toLocaleString(), icon: <Package weight="light" className="text-blue-400" /> },
           { label: 'Relief Centers', value: centers.length, icon: <Buildings weight="light" className="text-emerald-400" /> },
-          { label: 'Critical Requests', value: criticalRequestsCount, icon: <Heartbeat weight="light" className="text-red-400" /> },
-          { label: 'Resources Delivered', value: resourcesDelivered, icon: <Truck weight="light" className="text-purple-400" /> },
+          { label: 'Critical Missions', value: criticalMissionsCount, icon: <Heartbeat weight="light" className="text-red-400" /> },
+          { label: 'Missions Delivered', value: resourcesDelivered, icon: <Truck weight="light" className="text-purple-400" /> },
           { label: 'Low Stock Items', value: lowStockCount, icon: <Warning weight="light" className="text-orange-400" /> },
           { label: 'Distribution Rate', value: '92%', icon: <ChartPieSlice weight="light" className="text-emerald-400" /> },
         ].map((kpi, i) => (

@@ -1,4 +1,4 @@
-import { ReliefCenter, Resource, DisasterRequest } from '../utils/types';
+import { ReliefCenter, Resource, EmergencyMission } from '../utils/types';
 
 export const mockCenters: ReliefCenter[] = [
   { id: 'C-001', name: 'Central Command Base', region: 'North District', capacity: 10000, manager: 'Sarah Jenkins', contact: '+1-555-0101', status: 'Active', resourcesAvailable: 8015, personnel: 150, vehicles: 20, nearestDisasterRegion: 'City Center' },
@@ -21,9 +21,53 @@ export const mockResources: Resource[] = [
   { id: 'R-110', name: 'Flashlights', category: 'Rescue Equipment', quantity: 500, priority: 'Very Low', priorityScore: 1, reliefCenterId: 'C-005', status: 'In Transit', lastUpdated: new Date().toISOString() },
 ];
 
-export const mockRequests: DisasterRequest[] = [
-  { id: 'REQ-001', disasterType: 'Flood', region: 'East Coast', population: 50000, requestedResource: 'Rescue Equipment', quantity: 3, urgency: 'Critical', urgencyScore: 5, time: new Date(Date.now() - 3600000).toISOString(), status: 'Pending', assignedReliefCenter: 'C-002' },
-  { id: 'REQ-002', disasterType: 'Earthquake', region: 'City Center', population: 120000, requestedResource: 'Medicine', quantity: 500, urgency: 'Critical', urgencyScore: 5, time: new Date(Date.now() - 7200000).toISOString(), status: 'In Progress', assignedReliefCenter: 'C-004' },
-  { id: 'REQ-003', disasterType: 'Wildfire', region: 'Mountain Region', population: 15000, requestedResource: 'Water', quantity: 1000, urgency: 'High', urgencyScore: 4, time: new Date(Date.now() - 10800000).toISOString(), status: 'Pending', assignedReliefCenter: undefined },
-  { id: 'REQ-004', disasterType: 'Cyclone', region: 'South District', population: 85000, requestedResource: 'Shelter', quantity: 100, urgency: 'Medium', urgencyScore: 3, time: new Date(Date.now() - 86400000).toISOString(), status: 'Fulfilled', assignedReliefCenter: 'C-005' }
+export const mockMissions: EmergencyMission[] = [
+  {
+    missionId: 'MSN-8001',
+    disasterType: 'Flood',
+    region: 'East Coast',
+    population: 50000,
+    requestedResource: 'Rescue Equipment',
+    requiredQuantity: 3,
+    priority: 'Critical',
+    priorityScore: 5,
+    createdTime: new Date(Date.now() - 3600000).toISOString(),
+    status: 'Pending',
+    progressPercentage: 0,
+    timeline: [
+      { phase: 'Pending', timestamp: new Date(Date.now() - 3600000).toISOString() }
+    ]
+  },
+  {
+    missionId: 'MSN-8002',
+    disasterType: 'Earthquake',
+    region: 'City Center',
+    population: 120000,
+    requestedResource: 'Medicine',
+    requiredQuantity: 500,
+    priority: 'Critical',
+    priorityScore: 5,
+    createdTime: new Date(Date.now() - 7200000).toISOString(),
+    status: 'Pending',
+    progressPercentage: 0,
+    timeline: [
+      { phase: 'Pending', timestamp: new Date(Date.now() - 7200000).toISOString() }
+    ]
+  },
+  {
+    missionId: 'MSN-8003',
+    disasterType: 'Wildfire',
+    region: 'Mountain Region',
+    population: 15000,
+    requestedResource: 'Water',
+    requiredQuantity: 1000,
+    priority: 'High',
+    priorityScore: 4,
+    createdTime: new Date(Date.now() - 10800000).toISOString(),
+    status: 'Pending',
+    progressPercentage: 0,
+    timeline: [
+      { phase: 'Pending', timestamp: new Date(Date.now() - 10800000).toISOString() }
+    ]
+  }
 ];

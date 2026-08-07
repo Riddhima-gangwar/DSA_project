@@ -1,57 +1,39 @@
 import React from 'react';
 import { 
   FileText, DownloadSimple, TrendUp, Warning, 
-  Package, Buildings, ChartBar, Database, ArrowRight
+  Package, Buildings, ChartBar, Database, ArrowRight, CheckCircle
 } from '@phosphor-icons/react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
-
-const reportsList = [
-  { 
-    title: 'Daily Resource Report', 
-    desc: 'Comprehensive summary of all inventory changes, incoming shipments, and distributions across all relief centers over the last 24 hours.',
-    icon: <Database weight="light" />,
-    color: 'emerald',
-    featured: true
-  },
-  { 
-    title: 'Critical Resource Report', 
-    desc: 'Detailed breakdown of high-priority items deployed in active disaster zones.',
-    icon: <Warning weight="light" />,
-    color: 'red',
-    featured: false
-  },
-  { 
-    title: 'Low Stock Report', 
-    desc: 'Actionable list of all resources falling below the minimum threshold required for emergency preparedness.',
-    icon: <Package weight="light" />,
-    color: 'orange',
-    featured: false
-  },
-  { 
-    title: 'Relief Center Report', 
-    desc: 'Capacity metrics, personnel deployment status, and structural integrity assessments.',
-    icon: <Buildings weight="light" />,
-    color: 'blue',
-    featured: false
-  },
-  { 
-    title: 'Emergency Summary', 
-    desc: 'High-level overview of current disasters, affected population estimates, and overall response phases.',
-    icon: <TrendUp weight="light" />,
-    color: 'purple',
-    featured: false
-  },
-  { 
-    title: 'Allocation Report', 
-    desc: 'Logs of algorithmically routed resources, including time complexities and efficiency metrics of the DSA engine.',
-    icon: <ChartBar weight="light" />,
-    color: 'indigo',
-    featured: false
-  }
-];
+import { useAppContext } from '../context/AppContext';
 
 export default function Reports() {
+  const { allocationLogs, isEmergencyMode } = useAppContext();
+
+  const reportsList = [
+    { 
+      title: 'Allocation Report', 
+      desc: 'Real-time logs of algorithmically routed resources, including time complexities and efficiency metrics of the DSA engine.',
+      icon: <ChartBar weight="light" />,
+      color: 'indigo',
+      featured: true
+    },
+    { 
+      title: 'Daily Resource Report', 
+      desc: 'Comprehensive summary of all inventory changes and distributions across all relief centers over the last 24 hours.',
+      icon: <Database weight="light" />,
+      color: 'emerald',
+      featured: false
+    },
+    { 
+      title: 'Emergency Summary', 
+      desc: 'High-level overview of current disasters, affected population estimates, and overall response phases.',
+      icon: <TrendUp weight="light" />,
+      color: 'purple',
+      featured: false
+    }
+  ];
+
   const getColorClasses = (color: string) => {
     switch(color) {
       case 'emerald': return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400 group-hover:bg-emerald-500/20 group-hover:border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.1)]';
@@ -100,7 +82,7 @@ export default function Reports() {
             key={idx} 
             className={clsx(
               "group glass-panel p-2 flex flex-col cursor-pointer transition-all duration-500 hover:shadow-2xl",
-              report.featured ? "md:col-span-2 lg:col-span-2" : "col-span-1"
+              report.featured ? "md:col-span-2 lg:col-span-1" : "col-span-1"
             )}
           >
             <div className="glass-inner rounded-[calc(2rem-0.5rem)] p-8 md:p-10 flex flex-col h-full relative overflow-hidden bg-black/40 hover:bg-black/20 transition-colors">
@@ -147,6 +129,76 @@ export default function Reports() {
           </motion.div>
         ))}
       </div>
+
+      {/* Auto-Generated Report Table */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
+        className="glass-panel p-2 mt-12"
+      >
+        <div className="glass-inner rounded-[calc(2rem-0.5rem)] overflow-hidden">
+          <div className="p-8 border-b border-white/5 flex justify-between items-center bg-black/20">
+            <div>
+              <h3 className="text-2xl font-bold text-white flex items-center tracking-tight">
+                <CheckCircle className="mr-3 text-indigo-400" size={24} weight="light" />
+                Generated Allocation Log
+              </h3>
+              <p className="text-gray-400 text-sm mt-1">Automatically recorded post-allocation.</p>
+            </div>
+            <button className="text-xs uppercase tracking-widest font-bold text-indigo-400 border border-indigo-500/30 px-4 py-2 rounded bg-indigo-500/10 hover:bg-indigo-500/20 transition-colors">
+              Export Filtered
+            </button>
+          </div>
+          <div className="overflow-x-auto min-h-[300px] max-h-[500px]">
+            <table className="w-full text-left whitespace-nowrap">
+              <thead className="bg-black/40 sticky top-0 z-10">
+                <tr className="border-b border-white/5 text-[10px] uppercase tracking-widest font-bold text-gray-500">
+                  <th className="p-6">Log ID</th>
+                  <th className="p-6">Time</th>
+                  <th className="p-6">Status</th>
+                  <th className="p-6">Algorithms Used</th>
+                  <th className="p-6">Exec Time</th>
+                  <th className="p-6">Message</th>
+                </tr>
+              </thead>
+              <tbody>
+                {allocationLogs.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="p-12 text-center text-gray-500">
+                      No allocations recorded yet. Trigger an allocation from Disaster Requests.
+                    </td>
+                  </tr>
+                ) : (
+                  allocationLogs.map((log) => (
+                    <tr key={log.id} className="border-b border-white/[0.02] hover:bg-white/[0.02] transition-colors">
+                      <td className="p-6 font-mono text-xs text-gray-400">{log.id}</td>
+                      <td className="p-6 font-mono text-xs text-gray-400">{new Date(log.timestamp).toLocaleString()}</td>
+                      <td className="p-6">
+                        <span className={clsx("px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider",
+                          log.status === 'SUCCESS' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'
+                        )}>
+                          {log.status}
+                        </span>
+                      </td>
+                      <td className="p-6">
+                        <div className="flex flex-col gap-1">
+                          <span className="text-xs text-gray-300">Search: <span className="text-blue-400 font-mono">{log.dsaStats.searchAlgorithm}</span></span>
+                          <span className="text-xs text-gray-300">Sort: <span className="text-blue-400 font-mono">{log.dsaStats.sortAlgorithm}</span></span>
+                        </div>
+                      </td>
+                      <td className="p-6 font-mono text-xs text-emerald-400">{log.dsaStats.executionTimeMs}ms</td>
+                      <td className="p-6 text-sm text-gray-300">{log.message}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </motion.div>
+
     </div>
   );
 }

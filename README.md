@@ -1,32 +1,45 @@
-# React + TypeScript + Vite
+# 🌪️ Disaster Relief Resource Management System (ReliefOps)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+<div align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+</div>
 
-Currently, two official plugins are available:
+<br />
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Live Deployment
+> **[Click here to view the Live Project!](#)** *(Update this link once deployed to Vercel)*
 
-## React Compiler
+## 📝 Overview
+ReliefOps is a high-performance command platform for managing relief resources during natural disasters. The application serves as a **Mission Control Center** that utilizes efficient Data Structures and Algorithms to drastically improve response times during critical emergencies.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🔥 Features
+- **Live Command Dashboard**: Real-time telemetry feed of system events and operations.
+- **Automated Resource Allocation**: Uses **Quick Sort** and **Linear Search** to find and route the nearest available emergency supplies.
+- **Mission Replay Engine**: Visually trace the algorithmic execution of every emergency response mission, including time complexity (O(N), O(N log N)).
+- **Interconnected Workflow**: Centralized global state that ensures all pages (Inventory, Reports, Centers) update immediately when a mission is executed.
 
-## Expanding the Oxlint configuration
+## 🛠️ Tech Stack
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: Tailwind CSS, Framer Motion, Phosphor Icons
+- **State Management**: React Context API
+- **Algorithms**: Quick Sort, Bubble Sort, Merge Sort, Linear Search, Binary Search
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 💻 Local Development
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+1. **Install Dependencies**
+   ```bash
+   npm install
+   ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+2. **Run the Development Server**
+   ```bash
+   npm run dev
+   ```
+
+3. **Build for Production**
+   ```bash
+   npm run build
+   ```
